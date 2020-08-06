@@ -27,5 +27,5 @@ import matplotlib.pyplot as plt
 
 # pass the velocities and yaw
 
-def minJerkTraj(Xinit, Xgoal):  # Xinit = [x0,y0,z0,v0], Ygoal = [xf,yf,zf,vf]
+
     

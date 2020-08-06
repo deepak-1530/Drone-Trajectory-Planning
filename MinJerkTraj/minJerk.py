@@ -16,21 +16,24 @@ import math
 def genTraj(start, goal, t_mission):
     x = []
     y = []
+    z = []
     V =[]
     yaw = []
     dt = 0.1
     t = np.arange(0,t_mission+dt,dt)
-    for i in range(len(t)):
-        x_ = start[0] + (goal[0] - start[0])*(10*(t[i]/t_mission)**3  - 15*(t[i]/t_mission)**4 + 6*(t[i]/t_mission)**5)
-        y_ = start[1] + (goal[1] - start[1])*(10*(t[i]/t_mission)**3  - 15*(t[i]/t_mission)**4 + 6*(t[i]/t_mission)**5)
-        xV_ = (1.0/t_mission)*(goal[0] - start[0])*(30*(t[i]/t_mission)**2 - 60*(t[i]/t_mission)**3 + 30*(t[i]/t_mission)**4)
-        yV_ = (1.0/t_mission)*(goal[1] - start[1])*(30*(t[i]/t_mission)**2 - 60*(t[i]/t_mission)**3 + 30*(t[i]/t_mission)**4)
-        print([xV_, yV_])
-        yaw_ = math.atan2(yV_, xV_)*57.30
-        print(yaw_)
-        x.append(x_)
-        y.append(y_)
-        V.append(math.sqrt((xV_)**2 + (yV_)**2))
-        yaw.append(yaw_)
+    s2D = np.array([start[0],start[1],start[2]])
+    g2D = np.array([goal[0],goal[1], goal[2]])
     
-    return x,y,V,yaw,t
+    for i in range(len(t)):
+        pos = s2D + (g2D - s2D)*(10*(t[i]/t_mission)**3  - 15*(t[i]/t_mission)**4 + 6*(t[i]/t_mission)**5)
+        print(pos)
+        vel = (1.0/t_mission)*(g2D - s2D)*(30*(t[i]/t_mission)**2 - 60*(t[i]/t_mission)**3 + 30*(t[i]/t_mission)**4)
+        yaw_ = math.atan2(vel[1], vel[0])*57.30
+        print(yaw_)
+        x.append(pos[0])
+        y.append(pos[1])
+        z.append(pos[2])
+        V.append(math.sqrt((vel[0])**2 + (vel[1])**2))
+        yaw.append(yaw_)
+
+    return x,y,z,V,yaw,t

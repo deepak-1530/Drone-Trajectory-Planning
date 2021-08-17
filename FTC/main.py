@@ -110,7 +110,7 @@ async def main():
     gY = 50
     gYaw = np.deg2rad(60)  # 30 degrees of yaw with respect to the starting point
     gV = 0.0               # 1m/s goal velocity
-    gA = 0.0           # 0 acceleration upon reaching the goal
+    gA = 0.0               # 0 acceleration upon reaching the goal
 
     maxA = 2.5
     maxJerk = 0.1
